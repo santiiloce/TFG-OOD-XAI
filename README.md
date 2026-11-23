@@ -19,14 +19,14 @@ El trabajo estudia la detección de datos fuera de distribución (OOD) y la expl
 
 Cada carpeta tiene su propio `README.md` con la lista de ficheros, qué hace cada uno, la sección de la memoria donde se usa y qué entradas espera.
 
-## Alcance y limitaciones
+## Alcance del repositorio
 
-El código se publica **tal como se ejecutó**, como registro de los experimentos de la memoria. Por eso:
+Solo se publica el código más relevante de los experimentos descritos en la memoria: el entrenamiento de los clasificadores, la detección OOD y la explicabilidad. No se incluyen los conjuntos de datos, los modelos entrenados, los resultados, los scripts que generan las figuras y tablas, los scripts de envío a Slurm ni el código de repositorios de terceros (OpenOOD, STOOD-X, zennit, zennit-crp y el banco de corrupciones de Zhang et al.), salvo las tres clases derivadas que se indican en «Licencia». Por eso, el código no se puede ejecutar tal cual: se publica como registro de lo que se hizo.
+
+Además:
 
 - Conserva las rutas absolutas del clúster donde se ejecutó (`/mnt/homeGPU/...`). Para usarlo en otro equipo hay que cambiar las constantes de ruta de cada script.
-- **No se puede ejecutar sin los datos ni sin los repositorios externos**, que no se distribuyen (ver «Datos» y los README de cada área).
 - Los scripts se importan entre sí por el nombre del módulo. Las cadenas de dependencias y el `PYTHONPATH` necesario se indican en el README de cada área.
-- No se incluyen datos, pesos, resultados, scripts de envío a Slurm ni el código que genera las figuras y tablas de la memoria.
 
 ## Entornos
 

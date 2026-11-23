@@ -25,8 +25,8 @@ Evaluación de detectores OOD *post hoc* sobre el Swin-S: 13 métodos de OpenOOD
 | `corrupciones_zhang.py` | Llama a `utils.Distortions` del banco de Zhang et al. sin modificarlo: sustituye `visdom` y `wandb` por módulos vacíos, carga los recursos de 224 px y fija una semilla determinista por imagen, corrupción y nivel (4 primeros bytes del SHA-256). | «Materiales y métodos → Conjuntos OOD → Corrupciones sintéticas» | El clon del repositorio de Zhang et al. en `ZHANG` (no se distribuye; ver «Fuentes»). |
 | `parametros_corrupciones.py` | Lee con `ast` los parámetros de cada corrupción y nivel directamente del `utils.py` de Zhang et al. (commit `2b288c1`, comprobado con `git`) y los tamaños de `blots.npy`. | «Materiales y métodos → Conjuntos OOD → Corrupciones sintéticas» | El clon de Zhang et al. en ese commit. |
 | `fase8_extraer.py` | Corrompe el test ID (9 corrupciones × niveles 1, 3 y 5), extrae características y logits del Swin-S en CPU y puntúa todos los detectores con las referencias de la fase A. | «Materiales y métodos → Conjuntos OOD → Corrupciones sintéticas»; «Detección OOD → Corrupciones sintéticas: *covariate shift*» | `--modelo swin`, `--n`, `--salida`. Importa `my_evauator_openood` y `stoodx_paper`. |
-| `fase8_analizar.py` | Comprobaciones, exactitud y métricas por celda, CEC y saturación de STOOD-X. | «Detección OOD → Corrupciones sintéticas: *covariate shift*» (subsecciones «Exactitud del clasificador ante las corrupciones», «¿Detectan la alteración? AUROC y FPR@95» y «¿Gradúan la severidad? CEC»); «Material complementario → Corrupciones sintéticas» | La salida de `fase8_extraer.py` y las referencias congeladas de las fases A y B. **Importa `fase8_figuras`, que no se distribuye: hay que ejecutarlo con `--sin_figuras`.** |
-| `fase8b.py` | ¿Rechazan los detectores las imágenes corruptas mal clasificadas? Umbral fijo calculado con `id_val`, AUROC de error y AURC. | «Detección OOD → Corrupciones sintéticas: *covariate shift* → Saturación de STOOD-X» | Celdas de la fase 8 y puntuaciones de `id_val` de las fases A y B. **Al final importa `fase8b_figuras`, que no se distribuye: el script falla en esa línea después de haber guardado todos los CSV.** |
+| `fase8_analizar.py` | Comprobaciones, exactitud y métricas por celda, CEC y saturación de STOOD-X. | «Detección OOD → Corrupciones sintéticas: *covariate shift*» (subsecciones «Exactitud del clasificador ante las corrupciones», «¿Detectan la alteración? AUROC y FPR@95» y «¿Gradúan la severidad? CEC»); «Material complementario → Corrupciones sintéticas» | La salida de `fase8_extraer.py` y las referencias congeladas de las fases A y B. |
+| `fase8b.py` | ¿Rechazan los detectores las imágenes corruptas mal clasificadas? Umbral fijo calculado con `id_val`, AUROC de error y AURC. | «Detección OOD → Corrupciones sintéticas: *covariate shift* → Saturación de STOOD-X» | Celdas de la fase 8 y puntuaciones de `id_val` de las fases A y B. |
 | `fase8b_empates_reales.py` | Variante de STOOD-X con las imágenes saturadas tratadas como empate real, con IC por *bootstrap*. Reutiliza `fase8b.py`. | «Detección OOD → Corrupciones sintéticas: *covariate shift* → Saturación de STOOD-X» | Las mismas que `fase8b.py`. |
 | `fase8_stoodx_k.py` | STOOD-X con otro K sobre las características ya guardadas de las celdas; compara el FPR@95 con el de K = 500. | «Detección OOD → Corrupciones sintéticas: *covariate shift* → Saturación de STOOD-X» | `--K`; celdas de la fase 8. |
 
@@ -54,8 +54,8 @@ export PYTHONPATH=$PWD/OOD/openood:$PWD/OOD/stoodx:$PWD/OOD/corrupciones:$PWD/OO
 
 - `stoodx_paper`, `my_evauator_openood`, `comparar_resultados` y `f9_*` → `metricas_ood`.
 - `fase8_extraer` → `corrupciones_zhang`, `my_evauator_openood`, `stoodx_paper`.
-- `fase8_analizar` → `corrupciones_zhang` (y `fase8_figuras`, no incluido).
-- `fase8b` → `fase8_analizar`, `corrupciones_zhang` (y `fase8b_figuras`, no incluido); `fase8b_empates_reales` → `fase8b`.
+- `fase8_analizar` → `corrupciones_zhang`.
+- `fase8b` → `fase8_analizar`, `corrupciones_zhang`; `fase8b_empates_reales` → `fase8b`.
 - `fase8_stoodx_k` → `fase8_analizar`, `fase8_extraer`, `stoodx_paper`, `corrupciones_zhang`.
 - `f9_detectores` → `my_evauator_openood`, `stoodx_paper`; `ep_preparar` → `f9_extraer`, `stoodx_paper`; `ep_detectores` → `f9_detectores`; `ep_tablas` → `f9_tablas`.
 
