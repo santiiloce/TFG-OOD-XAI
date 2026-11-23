@@ -8,6 +8,21 @@ Código del Trabajo Fin de Grado de **Santiago López Cerro**.
 
 El trabajo estudia la detección de datos fuera de distribución (OOD) y la explicabilidad de clasificadores de imágenes histopatológicas de próstata.
 
+![Esquema del trabajo: detección OOD y explicaciones](img/esquema_tfg.png)
+
+*Teselas del conjunto PANDA (Bulten et al., 2022; licencia CC BY-NC-SA 4.0), redimensionadas y combinadas en un esquema. Los mapas de relevancia de la etapa 2 son ilustrativos, no salen de CRP. Esta figura se distribuye bajo [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/).*
+
+Esta imagen muestra de modo resumido de qué trata este trabajo. Como se puede observar, dada una muestra tisular de cáncer de próstata, se aplican dos etapas sobre ella:
+
+- **Etapa 1, Detección OOD:**
+  - Paso 1: la tesela pasa por el modelo y queda como un punto en el espacio de características.
+  - Paso 2: un detector calcula la puntuación s(x). Aparecen los detectores evaluados, agrupados en logits, activaciones y distancias, con STOOD-X como uno más.
+  - Paso 3: el umbral τ entre las distribuciones de puntuación ID y OOD.
+  - Paso 4: la decisión, s(x) ≥ τ → ID y s(x) < τ → OOD.
+- **Etapa 2, Explicaciones:**
+  - Paso 1: los vecinos más cercanos de la imagen consulta (marco rojo) en el espacio de características (marcos azules).
+  - Paso 2: mapas condicionados a dos conceptos (canales k₁ y k₂), con la variante A de LRP o con EG.
+
 ## Contenido
 
 ```
@@ -44,7 +59,7 @@ Los datos **no se distribuyen**. Proceden de:
 
 - **Conjunto ID** (14 clases de tejido de prostatectomía radical): Ayensa-Jiménez et al., «Fine-Grained Prostate Cancer Tissue Classification Through Expert-Annotated Dataset and Clinically Interpretable Deep Learning», IEEE CAI 2026, doi:10.1109/CAI68641.2026.11536250.
 - **NCT-CRC-HE-100K-NONORM**: Kather, Halama y Marx (2018), Zenodo, doi:10.5281/zenodo.1214456.
-- **PANDA**: Bulten et al., *Nature Medicine* 28 (2022) 154-163, doi:10.1038/s41591-021-01620-2.
+- **PANDA**: Bulten, W., Kartasalo, K., Chen, PH.C. et al. Artificial intelligence for diagnosis and Gleason grading of prostate cancer: the PANDA challenge. *Nat Med* (2022). <https://doi.org/10.1038/s41591-021-01620-2>
 - **DTD (Describable Textures Dataset)**: Cimpoi et al., CVPR 2014, doi:10.1109/CVPR.2014.461.
 
 ## Cómo citar
@@ -71,5 +86,7 @@ Cita también los trabajos y repositorios de terceros que se indican en el READM
 El código propio se distribuye bajo la **licencia MIT** (fichero [`LICENSE`](LICENSE)), © 2026 Santiago López Cerro.
 
 **Excepción:** tres clases de `XAI/lrp/` derivan de zennit (LGPL-3.0-or-later) y de timm (Apache-2.0): `ConvNeXtBlockCanonizer` y `ZPlusSinSesgo` (en `lrp_convnext_v2.py`) y `TimmBottleneckCanonizer` (en `lrp_fase2.py`). Esas clases se distribuyen bajo **LGPL-3.0-or-later**. Cada una lleva un comentario con su origen y sus cambios, y los textos de las licencias están en [`XAI/lrp/LICENSES/`](XAI/lrp/LICENSES/). El resto de esos dos ficheros es MIT.
+
+**Excepción para la figura:** `img/esquema_tfg.png` contiene teselas del conjunto PANDA, que se publica bajo CC BY-NC-SA 4.0. Por eso la figura se distribuye bajo esa misma licencia ([CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/)), no bajo MIT. Si la usas, cita también el artículo de PANDA: Bulten, W., Kartasalo, K., Chen, PH.C. et al. Artificial intelligence for diagnosis and Gleason grading of prostate cancer: the PANDA challenge. *Nat Med* (2022). <https://doi.org/10.1038/s41591-021-01620-2>
 
 Este repositorio no incluye código de OpenOOD, STOOD-X, zennit, zennit-crp ni del banco de corrupciones de Zhang et al. (salvo las tres clases anteriores): solo el código que los importa o los llama.
