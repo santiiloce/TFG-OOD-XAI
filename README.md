@@ -62,6 +62,9 @@ Los datos **no se distribuyen**. Proceden de:
 - **PANDA**: Bulten, W., Kartasalo, K., Chen, PH.C. et al. Artificial intelligence for diagnosis and Gleason grading of prostate cancer: the PANDA challenge. *Nat Med* (2022). <https://doi.org/10.1038/s41591-021-01620-2>
 - **DTD (Describable Textures Dataset)**: Cimpoi et al., CVPR 2014, doi:10.1109/CVPR.2014.461.
 
+## Declaración de uso de IA
+En la elaboración de este trabajo se ha hecho uso de una única herramienta de IA generativa, Claude (Anthropic), con los modelos Claude Opus y Claude Sonnet para prototipado de código. Posteriormente todo el código fue revisado por el autor que se hace responsable de su contenido.
+
 ## Cómo citar
 
 Si usas este código, cita el TFG:
